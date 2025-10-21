@@ -1,0 +1,22 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Blog;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class BlogsSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+         Blog::create([
+            'title' => 'Mẹo chọn giày chạy bộ',
+            'img' => 'blog1.jpg',
+            'content' => 'Nội dung demo...',
+        ]);
+    }
+}
