@@ -17,11 +17,12 @@ use App\Http\Controllers\Api\ProductController;
 */
 // Trang home
 Route::get('/home', [UserController::class, 'home']);
-Route::get('/products', [UserController::class, 'getProducts']);
-Route::get('/products/{slug}', [UserController::class, 'getProductDetail']);
-Route::get('/products/search', [UserController::class, 'searchProducts']);
 
 
 // Trang sản phẩm
 Route::get('products/filters', [ProductController::class, 'filters']);
+Route::get('products/search', [ProductController::class, 'search']);
 Route::get('products', [ProductController::class, 'index']);
+
+// Trang chi tiết sản phẩm
+Route::get('products/{idOrSlug}', [ProductController::class, 'show']);
