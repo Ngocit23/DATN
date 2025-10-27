@@ -15,9 +15,17 @@ class ProductImagesSeeder extends Seeder
     {
             ProductImage::insert([
                 ['product_id' => 1, 'image_url' => 'giaynike1.jpg'],
+                ['product_id' => 1, 'image_url' => 'giaynike1.2.jpg'],
+                ['product_id' => 1, 'image_url' => 'giaynike1.3.jpg'],
+                ['product_id' => 1, 'image_url' => 'giaynike1.4.jpg'],
+
+            ]);
+
+            ProductImage::insert([
                 ['product_id' => 2, 'image_url' => 'giaynike2.jpg'],
-                ['product_id' => 2, 'image_url' => 'giaynike3.jpg'],
-                ['product_id' => 2, 'image_url' => 'giaynike4.jpg'],
+                ['product_id' => 2, 'image_url' => 'giaynike2.2.jpg'],
+                ['product_id' => 2, 'image_url' => 'giaynike2.3.jpg'],
+                ['product_id' => 2, 'image_url' => 'giaynike2.4.jpg'],
 
             ]);
     }
