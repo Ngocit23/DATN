@@ -42,4 +42,6 @@ return [
     'middleware' => [
         'web',
     ],
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', 'localhost')),
+
 ];

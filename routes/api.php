@@ -35,21 +35,23 @@ Route::middleware('api')->group(function () {
     // Đăng nhập, đăng ký
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
-    
     // Đăng xuất cần xác thực
     Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
-    
     // Các route quên mật khẩu
     Route::post('forgot-password', [AuthController::class, 'sendResetLinkEmail']);
     Route::post('reset-password', [AuthController::class, 'reset']);
 });
 
 // Trang cart
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart', [CartController::class, 'addToCart']);
-    Route::put('/cart/{id}', [CartController::class, 'updateCart']);
-    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart']);
-    Route::post('/cart/apply-voucher', [CartController::class, 'applyVoucher']);
-    Route::post('/cart/checkout', [CartController::class, 'checkout']);
+    Route::get('/cart', [CartController::class, 'getCart']);
+    Route::put('/cart', [CartController::class, 'updateCart']);
+    Route::delete('cart', [CartController::class, 'removeFromCart']);
 });
+
+
+
+
 

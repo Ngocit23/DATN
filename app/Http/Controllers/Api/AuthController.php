@@ -54,35 +54,36 @@ class AuthController extends Controller
      * Đăng nhập người dùng và trả về token
      */
     public function login(Request $request)
-    {
-        // Validate the incoming request
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
-            'password' => 'required|string|min:8',
-        ]);
+{
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|string|email',
+        'password' => 'required|string|min:8',
+    ]);
 
-        // Nếu validation thất bại
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        // Kiểm tra thông tin đăng nhập
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Thông tin đăng nhập không hợp lệ'], 401);
-        }
-
-        // Tạo token cho người dùng
-        $token = $user->createToken('Laravel Sanctum')->plainTextToken;
-
-        // Trả về response chứa token và thông tin người dùng
-        return response()->json([
-            'message' => 'Đăng nhập thành công',
-            'user' => $user,
-            'token' => $token
-        ], 200);
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
     }
+
+    // Kiểm tra nếu người dùng đã đăng nhập
+    if (Auth::check()) {
+        return response()->json(['message' => 'Bạn đã đăng nhập rồi.'], 400);
+    }
+
+    $user = User::where('email', $request->email)->first();
+
+    if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json(['message' => 'Thông tin đăng nhập không hợp lệ'], 401);
+    }
+
+    $token = $user->createToken('Laravel Sanctum')->plainTextToken;
+
+    return response()->json([
+        'message' => 'Đăng nhập thành công',
+        'user' => $user,
+        'token' => $token
+    ], 200);
+}
+
 
     /**
      * Đăng xuất người dùng và xóa token
