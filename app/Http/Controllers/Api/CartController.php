@@ -79,11 +79,23 @@ class CartController extends Controller
     }
 
     // Lấy giỏ hàng của người dùng với thông tin về sản phẩm và kích cỡ
-    $cartItems = CartDetail::with(['productVariant.size'])  // Eager load size thông qua product_variant
+    $cartItems = CartDetail::with(['productVariant.product','productVariant.size'])  // Eager load size thông qua product_variant
         ->where('user_id', $user->id)  // Lọc giỏ hàng theo user_id
         ->get();
 
-    return response()->json($cartItems);
+    // Duyệt qua từng sản phẩm để tính giá cuối (subtotal) cho mỗi sản phẩm
+     $cartItems->transform(function ($cartItem) {
+        // Tính toán subtotal (số lượng * giá)
+        $cartItem->subtotal = $cartItem->quantity * $cartItem->productVariant->price;
+        return $cartItem;
+    }); 
+    // Tính tổng giá trị của giỏ hàng
+    $totalCartValue = $cartItems->sum('subtotal');
+
+    return response()->json([
+        'cart_items' => $cartItems,
+        'total_cart_value' => $totalCartValue,
+    ]);
 }
 
 

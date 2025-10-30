@@ -45,4 +45,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function cartDetails()
+{
+    return $this->hasMany(CartDetail::class, 'user_id');
+}
 }

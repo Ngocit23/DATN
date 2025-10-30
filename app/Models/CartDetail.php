@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class CartDetail extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'product_variant_id', 'quantity', 'subtotal', 'size_id'];
+    protected $fillable = ['user_id', 'product_variant_id', 'quantity', 'subtotal'];
 
     public function productVariant()
-    {
-        return $this->belongsTo(ProductVariant::class);
-    }
-    
+{
+    return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+}
+
+    public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
+}
 }

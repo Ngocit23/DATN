@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('cart', [CartController::class, 'removeFromCart']);
 });
 
+
+//trang order
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/order/info', [OrderController::class, 'getOrderInfo']);
+    Route::put('/order/update-shipping-address', [OrderController::class, 'updateShippingAddress']);
+    
+    Route::post('/order/create', [OrderController::class, 'createOrder']);
+    Route::put('/order/update-status/{orderId}', [OrderController::class, 'updateOrderStatus']);
+
+});
 
 
 
