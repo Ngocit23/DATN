@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\VnPayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,5 +65,8 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
-
-
+//trang thanh toán
+Route::post('/vnpay/create-payment', [OrderController::class, 'createVNPAYPayment']);
+Route::match(['get', 'post'], '/vnpay/return', [OrderController::class, 'vnpayReturn'])->name('vnpay.return');
+Route::get('/vnpay/return', [OrderController::class, 'vnpayReturn'])
+     ->name('api.vnpay.return');
